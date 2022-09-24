@@ -1,9 +1,10 @@
 package services
 
 import (
-	"errors"
 	"fmt"
 	"github.com/Hemant1-6/golang-microservices/mvc/domain"
+	"github.com/Hemant1-6/golang-microservices/mvc/utils"
+	"net/http"
 )
 
 var (
@@ -17,10 +18,14 @@ var (
 	}
 )
 
-func GetUser(userId int64) (user *domain.User, err error) {
-	if user := users[userId]; users != nil {
+func GetUser(userId int64) (user *domain.User, err *utils.ApplicationError) {
+	if user := users[userId]; user != nil {
 		return user, nil
 	}
 	return nil,
-		errors.New(fmt.Sprintf("No user found with user id as %v", userId))
+		&utils.ApplicationError{
+			Message: fmt.Sprintf("No user found with user id as %v", userId),
+			Status:  http.StatusNotFound,
+			Code:    "Not Found!",
+		}
 }
