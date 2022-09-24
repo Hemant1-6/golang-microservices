@@ -1,9 +1,14 @@
 package app
 
-import "net/http"
+import (
+	"github.com/Hemant1-6/golang-microservices/mvc/controllers"
+	"net/http"
+)
 
-func StartApp()  {
-    if err := http.ListenAndServe(":8080", nil); err != nil {
+func StartApp() {
+	http.HandleFunc("/user", controllers.GetUser)
+
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		panic(err)
 	}
 }
