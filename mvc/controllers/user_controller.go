@@ -12,6 +12,7 @@ func GetUser(resp http.ResponseWriter, req *http.Request) {
 		return
 	}
 	user, err := services.GetUser(userid)
+	println(user)
 	if err != nil {
 		panic(err)
 	}
